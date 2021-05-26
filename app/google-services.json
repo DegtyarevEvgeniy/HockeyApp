@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "21308275970",
+    "project_id": "registrationauth-1eeba",
+    "storage_bucket": "registrationauth-1eeba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:21308275970:android:8304bed26055be9ddad61b",
+        "android_client_info": {
+          "package_name": "com.slalom.example.domain.rigistration"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "21308275970-bpt61p3l15okmfeh566crfur3sf2c2md.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrC006cC9NmzjA1cUoKYzT5RQicXHoaQA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "21308275970-bpt61p3l15okmfeh566crfur3sf2c2md.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
