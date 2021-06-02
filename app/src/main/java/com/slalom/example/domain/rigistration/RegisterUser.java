@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
@@ -24,9 +25,10 @@ import com.google.firebase.database.FirebaseDatabase;
 public class RegisterUser extends AppCompatActivity implements View.OnClickListener {
 
     private TextView banner, registerUser;
-    private EditText editTextName, editTextSurname, editTextEmail, editTextPassword;
+    private EditText editTextName, editTextSurname, editTextEmail, editTextPassword, editTextTg;
     private ProgressBar progressBar;
     private Switch switchK;
+    private String floatingAction;
     private String word;
 
     private FirebaseAuth mAuth;
@@ -51,6 +53,8 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         editTextSurname = (EditText) findViewById(R.id.surname);
         editTextEmail = (EditText) findViewById(R.id.email);
         editTextPassword = (EditText) findViewById(R.id.password);
+        editTextTg = (EditText) findViewById(R.id.tg);
+
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
@@ -87,6 +91,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String goalkeeper = word;
+        String telegram = editTextTg.getText().toString().trim();
         String age = editTextSurname.getText().toString().trim();
         String time = editTextSurname.getText().toString().trim();
         String playce = editTextSurname.getText().toString().trim();
@@ -130,7 +135,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if(task.isSuccessful()){
-                            User user = new User(name, surname, email, goalkeeper, age, time, playce);
+                            User user = new User(name, surname, email, goalkeeper, age, time, playce, floatingAction, telegram);
 
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())

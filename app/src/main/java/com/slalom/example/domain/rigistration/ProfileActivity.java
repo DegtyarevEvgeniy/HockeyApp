@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodSubtype;
 import android.widget.Button;
@@ -21,6 +22,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,6 +43,7 @@ public class ProfileActivity extends AppCompatActivity {
     private DatabaseReference reference;
     private FirebaseStorage storage;
     private StorageReference storageReference;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     private String userID;
 
@@ -49,22 +52,19 @@ public class ProfileActivity extends AppCompatActivity {
 
     private Button edit;
 
-    private ImageView profilePic;
+
 
     private Uri imageUri;
+
+    boolean favCheck = false;
+    private static final String TAG = "MyApp";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
-        profilePic = findViewById(R.id.profilePic);
-        profilePic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                choosePicture();
-            }
-        });
 
 
         logout = (Button) findViewById(R.id.singOut);
@@ -78,6 +78,9 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivity(new Intent(ProfileActivity.this, MainActivity.class));
             }
         });
+
+
+
 
         list = (Button) findViewById(R.id.list);
 
@@ -93,6 +96,12 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ProfileActivity.this, edit_user.class));
+
+                user = FirebaseAuth.getInstance().getCurrentUser();
+                reference = FirebaseDatabase.getInstance().getReference("Users");
+                userID = user.getUid();
+
+                Log.d(TAG, user.getDisplayName()+user.getEmail());
             }
         });
 
@@ -105,17 +114,22 @@ public class ProfileActivity extends AppCompatActivity {
         final TextView emailTextView = (TextView) findViewById(R.id.emailAddress);
         final TextView surnameTextView = (TextView) findViewById(R.id.surnameText);
 
-        reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.child(userID);
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = new User();
+                Log.d(TAG, user.toString());
+
                 User userProfile = snapshot.getValue(User.class);
 
-                if(userProfile != null){
+
+                if (userProfile != null && userProfile.name!=null) {
                     String name = userProfile.name;
                     String email = userProfile.email;
                     String surname = userProfile.surname;
 
-                    greetingTextView.setText("Welcome, " + name + "!");
+                    greetingTextView.setText("Добро пожаловать, " + name + "!");
                     nameTextView.setText(name);
                     emailTextView.setText(email);
                     surnameTextView.setText(surname);
@@ -124,65 +138,30 @@ public class ProfileActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ProfileActivity.this, "Something wrong happened!", Toast.LENGTH_LONG).show();
+                Toast.makeText(ProfileActivity.this, "Что-то пошло не так!", Toast.LENGTH_LONG).show();
             }
         });
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        int maxCount = 1000, currentCount = 0;
+        while (user.getEmail() == null && currentCount < maxCount) {
+            user = FirebaseAuth.getInstance().getCurrentUser();
+            currentCount++;
+        }
+        Log.d(TAG, user.getDisplayName() + user.getEmail() + "!!!!!!!!!!!");
+        if (user != null && user.getDisplayName()!=null) {
+            String name = user.getDisplayName();
+            String email = user.getEmail();
+            String surname = user.getPhoneNumber();
+
+            greetingTextView.setText("Добро пожаловать, " + name + "!");
+            nameTextView.setText(name);
+            emailTextView.setText(email);
+            surnameTextView.setText(surname);
+        }
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
-
-
-
-    }
-
-    private void choosePicture() {
-
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, 1);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==1 && requestCode == RESULT_OK && data != null && data.getData()!=null){
-            imageUri = data.getData();
-            profilePic.setImageURI(imageUri);
-            uploadPicture();
-        }
-    }
-
-    private void uploadPicture() {
-        final ProgressDialog pd = new ProgressDialog(this);
-        pd.setTitle("Uploading Image ...");
-        pd.show();
-
-       final String randomKey = UUID.randomUUID().toString();
-       StorageReference riversRef = storageReference.child("image/"+randomKey);
-
-       riversRef.putFile(imageUri)
-               .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                   @Override
-                   public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                       pd.dismiss();
-                       Snackbar.make(findViewById(R.id.content), "Image Uploaded", Snackbar.LENGTH_LONG).show();
-                   }
-               })
-               .addOnFailureListener(new OnFailureListener() {
-                   @Override
-                   public void onFailure(@NonNull Exception e) {
-                       pd.dismiss();
-                        Toast.makeText(getApplicationContext(), "Faild To Upload", Toast.LENGTH_LONG).show();
-                   }
-               })
-               .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                   @Override
-                   public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
-                        double progressPercent = (100.00 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                        pd.setMessage("Process: " + (int) progressPercent + "%");
-                   }
-               });
     }
 }

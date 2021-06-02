@@ -16,71 +16,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo" />
 
-    <EditText
-        android:id="@+id/emailSave"
-        android:layout_width="338dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="Email Address"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="@+id/surnameSave"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/surnameSave"
-        app:layout_constraintTop_toBottomOf="@+id/surnameSave" />
 
-    <EditText
-        android:id="@+id/nameSave"
-        android:layout_width="338dp"
-        android:layout_height="57dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:hint="Name"
-        android:inputType="textMultiLine"
+    <ImageView
+        android:id="@+id/profilePic"
+        android:layout_width="185dp"
+        android:layout_height="182dp"
+        android:background="@color/common_google_signin_btn_text_light"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        tools:srcCompat="@tools:sample/avatars" />
 
-    <EditText
-        android:id="@+id/surnameSave"
-        android:layout_width="337dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="Surname"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/nameSave"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/nameSave"
-        app:layout_constraintTop_toBottomOf="@+id/nameSave" />
 
-    <EditText
-        android:id="@+id/ageSave"
-        android:layout_width="138dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:hint="Age"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toStartOf="@+id/choose_goalkip"
-        app:layout_constraintHorizontal_bias="0.153"
-        app:layout_constraintStart_toStartOf="@+id/emailSave"
-        app:layout_constraintTop_toBottomOf="@+id/emailSave" />
-
-    <Switch
-        android:id="@+id/choose_goalkipSave"
-        android:layout_width="182dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="4dp"
-        android:text="Are you goalkeeper?"
-        app:layout_constraintEnd_toEndOf="@+id/emailSave"
-        app:layout_constraintHorizontal_bias="0.993"
-        app:layout_constraintStart_toEndOf="@+id/ageSave"
-        app:layout_constraintTop_toTopOf="@+id/ageSave" />
-
-<!--    <TextView-->
+    <!--    <TextView-->
 <!--        android:id="@+id/bannerDescription4"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
@@ -102,16 +50,39 @@
 <!--        app:layout_constraintStart_toStartOf="parent"-->
 <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
+    <EditText
+        android:id="@+id/nameSave"
+        android:layout_width="338dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Имя"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profilePic" />
+
+    <Switch
+        android:id="@+id/choose_goalkipSave"
+        android:layout_width="182dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="16dp"
+        android:text="Ты вратарь?"
+        app:layout_constraintEnd_toEndOf="@+id/nameSave"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="@+id/nameSave"
+        app:layout_constraintTop_toBottomOf="@+id/nameSave" />
+
     <Button
         android:id="@+id/savechanges"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="72dp"
-        android:text="Save"
+        android:layout_marginBottom="36dp"
+        android:text="Сохранить"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/choose_goalkipSave"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

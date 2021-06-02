@@ -50,12 +50,12 @@ public class ForgotPass extends AppCompatActivity {
         String email = emailEditText.getText().toString().trim();
 
         if(email.isEmpty()) {
-            emailEditText.setError("Email is required!");
+            emailEditText.setError("Требуется почта!");
             emailEditText.requestFocus();
             return;
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            emailEditText.setError("Please provid email!");
+            emailEditText.setError("Пожалуйста, укажите адрес электронной почты!");
             emailEditText.requestFocus();
             return;
         }
@@ -64,9 +64,9 @@ public class ForgotPass extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(ForgotPass.this,"Check your email to reset your password!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ForgotPass.this,"Пожалйуста, проверьте вашу почту для изменения пароля!", Toast.LENGTH_LONG).show();
                 }else{
-                    Toast.makeText(ForgotPass.this, "Try again! Something wrong happend!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ForgotPass.this, "Попробуйте снова! Что-то не так!", Toast.LENGTH_LONG).show();
                 }
             }
         });

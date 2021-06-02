@@ -3,18 +3,19 @@
     package="com.slalom.example.domain.rigistration">
 
     <application
+        android:name=".Notifications"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Rigistration">
-        <activity android:name=".favoritesUsers"></activity>
-        <activity android:name=".edit_user" />
-        <activity android:name=".UserList" />
-        <activity android:name=".ForgotPass" />
+        <activity android:name=".favoritesUsers" android:parentActivityName=".UserList"></activity>
+        <activity android:name=".edit_user" android:parentActivityName=".ProfileActivity"></activity>
+        <activity android:name=".UserList" android:parentActivityName=".ProfileActivity"></activity>
+        <activity android:name=".ForgotPass" android:parentActivityName=".MainActivity"></activity>
         <activity android:name=".ProfileActivity" />
-        <activity android:name=".RegisterUser" />
+        <activity android:name=".RegisterUser" android:parentActivityName=".MainActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

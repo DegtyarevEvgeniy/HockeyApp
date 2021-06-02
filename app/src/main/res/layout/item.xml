@@ -1,42 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardElevation="8dp"
+    android:layout_margin="10dp"
+    android:background="@color/purple_700"
+    android:padding="3dp"
+    android:id="@+id/rootId"
     app:cardCornerRadius="10dp"
-    android:padding="20dp"
-    android:layout_margin="10dp">
+    app:cardElevation="8dp">
+
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:cardBackgroundColor="@color/white"
+    android:id="@+id/cardView"
+    app:cardElevation="5dp"
+    tools:ignore="MissingConstraints">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        tools:ignore="MissingConstraints">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+
 
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="200dp"
-                android:layout_height="100dp"
-                tools:srcCompat="@tools:sample/avatars" />
+                android:layout_height="400dp"
+                android:src="@drawable/person"
+                tools:srcCompat="@drawable/person" />
 
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="Name"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:padding="5dp"-->
+<!--                    android:text="Имя"-->
+<!--                    android:textSize="20sp"-->
+<!--                    android:background="@color/teal_200"-->
+<!--                    android:textStyle="bold" />-->
 
                 <TextView
                     android:id="@+id/name_text"
@@ -44,7 +61,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:text="Tom"
-                    android:textSize="17sp"
+                    android:layout_marginTop="20dp"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="35sp"
                     android:textStyle="bold" />
 
 
@@ -53,63 +73,80 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="Surname"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/surname_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:text="Marcel"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
-
-
-            </LinearLayout>
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="horizontal">-->
+                android:orientation="vertical">
 
 <!--                <TextView-->
 <!--                    android:layout_width="wrap_content"-->
 <!--                    android:layout_height="wrap_content"-->
 <!--                    android:padding="5dp"-->
-<!--                    android:text="Email"-->
+<!--                    android:background="@color/teal_200"-->
+<!--                    android:text="Фамилия"-->
 <!--                    android:textSize="20sp"-->
 <!--                    android:textStyle="bold" />-->
 
-<!--                <TextView-->
-<!--                    android:id="@+id/email_text"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginStart="20dp"-->
-<!--                    android:text="test@gmail.com"-->
-<!--                    android:textSize="17sp"-->
-<!--                    android:textStyle="bold" />-->
+                <TextView
+                    android:id="@+id/surname_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="20dp"
+                    android:text="Marcel"
+                    android:textAllCaps="true"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
 
 
-<!--            </LinearLayout>-->
+            </LinearLayout>
+
+            <!--            <LinearLayout-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:orientation="horizontal">-->
+
+            <!--                <TextView-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:padding="5dp"-->
+            <!--                    android:text="Email"-->
+            <!--                    android:textSize="20sp"-->
+            <!--                    android:textStyle="bold" />-->
+
+            <!--                <TextView-->
+            <!--                    android:id="@+id/email_text"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_marginStart="20dp"-->
+            <!--                    android:text="test@gmail.com"-->
+            <!--                    android:textSize="17sp"-->
+            <!--                    android:textStyle="bold" />-->
+
+
+            <!--            </LinearLayout>-->
+
+
+
+
+
+
+
+
+<View
+    android:layout_width="match_parent"
+    android:layout_height="3dp"
+    android:background="@color/purple_700"
+    android:layout_marginBottom="20dp"
+    android:layout_marginTop="20dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:text="Role"
+                    android:text="Роль"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -121,39 +158,78 @@
                     android:text="goalkeeper"
                     android:textSize="17sp"
                     android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Telegram tag"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/telegram_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:text="tag"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
 
 
             </LinearLayout>
-
-        </LinearLayout>
 <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:orientation="horizontal">
 
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="129dp"
-        android:text="Arrival entered an if drawing request. \n How daughters not promotion few knowledge contented."
-        android:gravity="center"
-        android:padding="10dp">
-    </TextView>
-
-    <Button
-        android:id="@+id/infoUser"
-        android:layout_width="151dp"
-        android:layout_height="50dp"
-        android:layout_margin="20dp"
-        android:layout_marginBottom="100dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:text="More Info" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/purple_700"
+                android:layout_gravity="center_vertical"
+                android:text="Пригласить на игру"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/inviteBtn"
+                android:background="@drawable/ic_baseline_sports_hockey_24"
+                android:layout_gravity="right"/>
 
 </LinearLayout>
 
 
-    </LinearLayout>
+            <!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical">-->
+<!--               -->
+<!--                <ImageButton-->
+<!--                    android:id="@+id/favIt"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:src="@drawable/ic_favorite_shadow_24"-->
+<!--                    android:background="@android:color/transparent"-->
+<!--                    android:layout_gravity="center">-->
 
+<!--                </ImageButton>-->
+
+<!--            </LinearLayout>-->
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
 </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

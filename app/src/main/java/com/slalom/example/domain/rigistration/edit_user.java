@@ -1,9 +1,11 @@
 package com.slalom.example.domain.rigistration;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,20 +19,34 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.lang.reflect.Field;
+import java.util.UUID;
 
 public class edit_user extends AppCompatActivity {
 
     public static final String TAG = "TAG";
     private EditText nameSave, surnameSave, emailSave, ageSave;
     private Button save;
-    private ImageView userImg;
+    private StorageReference storageReference;
+    private ImageView profilePic;
+    private Uri imageUri;
 
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private FirebaseUser user = auth.getCurrentUser();
+
+    String DISPLAY_NAME = null;
 
 
     @Override
@@ -39,13 +55,32 @@ public class edit_user extends AppCompatActivity {
         setContentView(R.layout.activity_edit_user);
 
 
-
         nameSave = (EditText) findViewById(R.id.nameSave);
-        surnameSave = (EditText) findViewById(R.id.surnameSave);
-        emailSave = (EditText) findViewById(R.id.emailSave);
-        ageSave = (EditText) findViewById(R.id.ageSave);
 
 
+        profilePic = findViewById(R.id.profilePic);
+        profilePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                choosePicture();
+            }
+        });
+        save = (Button) findViewById(R.id.savechanges);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                updateProfile();
+            }
+        });
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            Log.d(TAG, "onCreate: " + user.getDisplayName());
+            if (user.getDisplayName() != null) {
+                nameSave.setText(user.getDisplayName());
+                nameSave.setSelection(user.getDisplayName().length());
+            }
+        }
 
 
 //    save.setOnClickListener(new View.OnClickListener() {
@@ -58,22 +93,96 @@ public class edit_user extends AppCompatActivity {
 
     }
 
-    private void updateProfile() {
-        UserProfileChangeRequest updateProfile = new UserProfileChangeRequest.Builder()
-                .setDisplayName(nameSave.getText().toString())
-                .setPhotoUri(Uri.parse(surnameSave.getText().toString()))
-                .build();
-        user.updateProfile(updateProfile).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(edit_user.this, "Profile Updated", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(edit_user.this, ProfileActivity.class));
-                    finish();
-                }
-            }
-        });
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==1 && requestCode == RESULT_OK && data != null && data.getData()!=null){
+            imageUri = data.getData();
+            profilePic.setImageURI(imageUri);
+            uploadPicture();
+        }
+    }
+    private void choosePicture() {
+
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, 1);
+    }
+    private void uploadPicture() {
+        final ProgressDialog pd = new ProgressDialog(this);
+        pd.setTitle("Uploading Image ...");
+        pd.show();
+
+        final String randomKey = UUID.randomUUID().toString();
+        StorageReference riversRef = storageReference.child("image/"+randomKey);
+
+        riversRef.putFile(imageUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        pd.dismiss();
+                        Snackbar.make(findViewById(R.id.content), "Картинка загружается", Snackbar.LENGTH_LONG).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        pd.dismiss();
+                        Toast.makeText(getApplicationContext(), "Ошибка загрузки", Toast.LENGTH_LONG).show();
+                    }
+                })
+                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
+                        double progressPercent = (100.00 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                        pd.setMessage("Process: " + (int) progressPercent + "%");
+                    }
+                });
     }
 
+    private void updateProfile() {
+
+        DISPLAY_NAME = nameSave.getText().toString();
+
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        UserProfileChangeRequest request = new UserProfileChangeRequest.Builder()
+                .setDisplayName(DISPLAY_NAME)
+                .build();
+
+        firebaseUser.updateProfile(request)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(edit_user.this, "Ваш профиль успешно обновлен", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(edit_user.this, "Ошибка", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+//        UserProfileChangeRequest updateProfile = new UserProfileChangeRequest.Builder()
+//                .setDisplayName(nameSave.getText().toString())
+//                .setPhotoUri(Uri.parse(surnameSave.getText().toString()))
+//                .build();
+//        user.updateProfile(updateProfile).addOnCompleteListener(new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Void> task) {
+//                if (task.isSuccessful()) {
+//                    Toast.makeText(edit_user.this, "Профиль обновлен", Toast.LENGTH_LONG).show();
+//                    startActivity(new Intent(edit_user.this, ProfileActivity.class));
+//                    finish();
+//                }else{
+//                    Toast.makeText(edit_user.this, "Ошибка", Toast.LENGTH_LONG).show();
+//                }
+//            }
+//        });
+    }
 
 }
