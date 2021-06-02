@@ -143,7 +143,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         user = FirebaseAuth.getInstance().getCurrentUser();
-        int maxCount = 1000, currentCount = 0;
+        int maxCount = 10000, currentCount = 0;
         while (user.getEmail() == null && currentCount < maxCount) {
             user = FirebaseAuth.getInstance().getCurrentUser();
             currentCount++;

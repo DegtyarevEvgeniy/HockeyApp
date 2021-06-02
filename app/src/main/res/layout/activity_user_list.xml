@@ -10,6 +10,7 @@
         android:id="@+id/reciclerview"
         android:layout_width="match_parent"
         android:layout_height="667dp"
+        app:layout_constraintBottom_toTopOf="@+id/favouritsBTN"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
