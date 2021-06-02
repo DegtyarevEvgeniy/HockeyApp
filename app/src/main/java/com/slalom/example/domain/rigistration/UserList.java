@@ -83,7 +83,8 @@ public class UserList extends AppCompatActivity {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     User model = dataSnapshot.getValue(User.class);
                     list.add(model);
-                    if(model.goalkeeper.equals("goalkeeper")){
+
+                    if(model != null  && model.goalkeeper != null && model.goalkeeper.equals("goalkeeper")  ){
                         showList.add(model);
                     }
 

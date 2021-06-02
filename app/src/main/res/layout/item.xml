@@ -48,13 +48,12 @@
                         android:id="@+id/name_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="20dp"
                         android:text="Tom"
                         android:textAllCaps="true"
                         android:textColor="@color/black"
                         android:textSize="35sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent" />
 
 
                     <LinearLayout
@@ -170,8 +169,8 @@
                         android:text="@string/role"
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/view" />
+                        app:layout_constraintTop_toBottomOf="@+id/view"
+                        tools:layout_editor_absoluteX="0dp" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
