@@ -92,7 +92,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             cardView = itemView.findViewById(R.id.cardView);
             cardView.setOnCreateContextMenuListener(this);
 
-        inviteBtn= itemView.findViewById(R.id.inviteBtn);
+
 
 
         }

@@ -14,4 +14,7 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="invitation_button">Пригласить на игру</string>
+    <string name="telegram_username">Telegram username</string>
+    <string name="role">Роль</string>
 </resources>
