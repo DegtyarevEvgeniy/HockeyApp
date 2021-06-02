@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Rigistration">
         <activity android:name=".favoritesUsers" android:parentActivityName=".UserList"></activity>
-        <activity android:name=".edit_user" android:parentActivityName=".ProfileActivity"></activity>
+        <activity android:name=".EditUser" android:parentActivityName=".ProfileActivity"></activity>
         <activity android:name=".UserList" android:parentActivityName=".ProfileActivity"></activity>
         <activity android:name=".ForgotPass" android:parentActivityName=".MainActivity"></activity>
         <activity android:name=".ProfileActivity" />

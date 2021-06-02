@@ -3,26 +3,20 @@ package com.slalom.example.domain.rigistration;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,10 +25,9 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.lang.reflect.Field;
 import java.util.UUID;
 
-public class edit_user extends AppCompatActivity {
+public class EditUser extends AppCompatActivity {
 
     public static final String TAG = "TAG";
     private EditText nameSave, surnameSave, emailSave, ageSave;
@@ -156,14 +149,14 @@ public class edit_user extends AppCompatActivity {
 
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(edit_user.this, "Ваш профиль успешно обновлен", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditUser.this, "Ваш профиль успешно обновлен", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
 
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(edit_user.this, "Ошибка", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditUser.this, "Ошибка", Toast.LENGTH_SHORT).show();
                     }
                 });
 

@@ -6,29 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ProfileActivity">
 
-<!--    <TextView-->
-<!--        android:id="@+id/banner3"-->
-<!--        android:layout_width="411dp"-->
-<!--        android:layout_height="81dp"-->
-<!--        android:layout_marginTop="52dp"-->
-<!--        android:text="@string/main_name"-->
-<!--        android:textAlignment="center"-->
-<!--        android:textSize="50sp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.0"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/bannerDescription3"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:text="@string/motivate"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/banner3" />-->
-
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="263dp"
@@ -64,7 +41,7 @@
         android:id="@+id/emailAddressTitle"
         android:layout_width="130dp"
         android:layout_height="29dp"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="12dp"
         android:text="Почта:"
         app:layout_constraintStart_toEndOf="@+id/profilePic"
         app:layout_constraintTop_toTopOf="@+id/profilePic" />
