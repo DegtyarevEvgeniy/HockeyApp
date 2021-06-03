@@ -18,14 +18,16 @@
 
     <TextView
         android:id="@+id/greeting"
-        android:layout_width="354dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="24dp"
+        android:layout_width="323dp"
+        android:layout_height="78dp"
         android:layout_marginBottom="48dp"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/emailAddressTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintEnd_toEndOf="@+id/imageView3"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/fullName"
@@ -128,7 +130,7 @@
         android:id="@+id/edit"
         android:layout_width="242dp"
         android:layout_height="74dp"
-        android:layout_marginBottom="68dp"
+        android:layout_marginBottom="52dp"
         android:backgroundTint="@color/design_default_color_primary_dark"
         android:text="редактировать профиль"
         android:textColor="#ffff"
@@ -143,21 +145,19 @@
         android:id="@+id/textInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Информация:"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/emailAddressTitle"
         app:layout_constraintStart_toStartOf="@+id/greeting"
-        app:layout_constraintTop_toBottomOf="@+id/greeting"
-        app:layout_constraintVertical_bias="0.486" />
+        app:layout_constraintTop_toBottomOf="@+id/greeting" />
 
     <ImageView
         android:id="@+id/profilePic"
         android:layout_width="185dp"
         android:layout_height="182dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="128dp"
         android:src="@drawable/test"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/greeting"
         app:layout_constraintTop_toBottomOf="@+id/imageView3"
         tools:srcCompat="@tools:sample/avatars" />
 

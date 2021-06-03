@@ -71,22 +71,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.singIn:
                 userLogin();
-                Intent notificationIntent = new Intent(MainActivity.this, MainActivity.class);
-                PendingIntent contentIntent = PendingIntent.getActivity(MainActivity.this,
-                        0, notificationIntent,
-                        PendingIntent.FLAG_CANCEL_CURRENT);
-
-                NotificationCompat.Builder builder =
-                        new NotificationCompat.Builder(MainActivity.this, CHANNEL_1_ID)
-                                .setSmallIcon(R.drawable.ic_one)
-                                .setContentTitle("Поздравляю!")
-                                .setContentText("Вы успешно вошли в ваш акканут :)")
-                                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                                .setContentIntent(contentIntent);
-
-                NotificationManagerCompat notificationManager =
-                        NotificationManagerCompat.from(MainActivity.this);
-                notificationManager.notify(1, builder.build());
                 break;
             case R.id.forgotPassword:
                 startActivity(new Intent(this, ForgotPass.class));
@@ -130,6 +114,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         if(user.isEmailVerified()){
                             startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                            Intent notificationIntent = new Intent(MainActivity.this, MainActivity.class);
+                            PendingIntent contentIntent = PendingIntent.getActivity(MainActivity.this,
+                                    0, notificationIntent,
+                                    PendingIntent.FLAG_CANCEL_CURRENT);
+
+                            NotificationCompat.Builder builder =
+                                    new NotificationCompat.Builder(MainActivity.this, CHANNEL_1_ID)
+                                            .setSmallIcon(R.drawable.ic_baseline_sports_hockey_24)
+                                            .setContentTitle("Поздравляю!")
+                                            .setContentText("Вы успешно вошли в ваш акканут :)")
+                                            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                                            .setContentIntent(contentIntent);
+
+                            NotificationManagerCompat notificationManager =
+                                    NotificationManagerCompat.from(MainActivity.this);
+                            notificationManager.notify(1, builder.build());
                         }else{
                             user.sendEmailVerification();
                             Toast.makeText(MainActivity.this, "Проверьте свою почту!", Toast.LENGTH_LONG).show();
