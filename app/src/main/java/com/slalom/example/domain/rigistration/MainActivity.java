@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             NotificationCompat.Builder builder =
                                     new NotificationCompat.Builder(MainActivity.this, CHANNEL_1_ID)
                                             .setSmallIcon(R.drawable.ic_baseline_sports_hockey_24)
-                                            .setContentTitle("Поздравляю!")
+                                            .setContentTitle("HockeyApp")
                                             .setContentText("Вы успешно вошли в ваш акканут :)")
                                             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                                             .setContentIntent(contentIntent);
@@ -133,9 +133,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }else{
                             user.sendEmailVerification();
                             Toast.makeText(MainActivity.this, "Проверьте свою почту!", Toast.LENGTH_LONG).show();
+                            Intent notificationIntent = new Intent(MainActivity.this, MainActivity.class);
+                            PendingIntent contentIntent = PendingIntent.getActivity(MainActivity.this,
+                                    0, notificationIntent,
+                                    PendingIntent.FLAG_CANCEL_CURRENT);
+
+                            NotificationCompat.Builder builder =
+                                    new NotificationCompat.Builder(MainActivity.this, CHANNEL_1_ID)
+                                            .setSmallIcon(R.drawable.ic_baseline_sports_hockey_24)
+                                            .setContentTitle("HockeyApp")
+                                            .setContentText("Проверьте свою почту!")
+                                            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                                            .setContentIntent(contentIntent);
+
+                            NotificationManagerCompat notificationManager =
+                                    NotificationManagerCompat.from(MainActivity.this);
+                            notificationManager.notify(2, builder.build());
                         }
                 }else{
-                    Toast.makeText(MainActivity.this, "Ошибка регистрации! Пожалуйста, проверьте свои дааныеs", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Ошибка регистрации! Пожалуйста, проверьте свои данные", Toast.LENGTH_LONG).show();
+                    Intent notificationIntent = new Intent(MainActivity.this, MainActivity.class);
+                    PendingIntent contentIntent = PendingIntent.getActivity(MainActivity.this,
+                            0, notificationIntent,
+                            PendingIntent.FLAG_CANCEL_CURRENT);
+
+                    NotificationCompat.Builder builder =
+                            new NotificationCompat.Builder(MainActivity.this, CHANNEL_1_ID)
+                                    .setSmallIcon(R.drawable.ic_baseline_sports_hockey_24)
+                                    .setContentTitle("HockeyApp")
+                                    .setContentText("Ошибка регистрации! Пожалуйста, проверьте свои данные")
+                                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                                    .setContentIntent(contentIntent);
+
+                    NotificationManagerCompat notificationManager =
+                            NotificationManagerCompat.from(MainActivity.this);
+                    notificationManager.notify(3, builder.build());
                 }
             }
         });

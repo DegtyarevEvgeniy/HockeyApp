@@ -3,7 +3,10 @@ package com.slalom.example.domain.rigistration;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -26,6 +29,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.UUID;
+
+import static com.slalom.example.domain.rigistration.Notifications.CHANNEL_1_ID;
 
 public class EditUser extends AppCompatActivity {
 
@@ -150,6 +155,22 @@ public class EditUser extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(EditUser.this, "Ваш профиль успешно обновлен", Toast.LENGTH_SHORT).show();
+                        Intent notificationIntent = new Intent(EditUser.this, EditUser.class);
+                        PendingIntent contentIntent = PendingIntent.getActivity(EditUser.this,
+                                0, notificationIntent,
+                                PendingIntent.FLAG_CANCEL_CURRENT);
+
+                        NotificationCompat.Builder builder =
+                                new NotificationCompat.Builder(EditUser.this, CHANNEL_1_ID)
+                                        .setSmallIcon(R.drawable.ic_baseline_sports_hockey_24)
+                                        .setContentTitle("HockeyApp")
+                                        .setContentText("Ваш профиль успешно обновлен")
+                                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                                        .setContentIntent(contentIntent);
+
+                        NotificationManagerCompat notificationManager =
+                                NotificationManagerCompat.from(EditUser.this);
+                        notificationManager.notify(5, builder.build());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

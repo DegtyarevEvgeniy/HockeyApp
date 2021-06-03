@@ -137,7 +137,7 @@ public class ProfileActivity extends AppCompatActivity {
         if (user != null && user.getDisplayName()!=null) {
             String name = user.getDisplayName();
             String email = user.getEmail();
-            String surname = user.getPhoneNumber();
+            String surname = user.getDisplayName();
 
             greetingTextView.setText("Добро пожаловать, " + name + "!");
             nameTextView.setText(name);

@@ -2,7 +2,10 @@ package com.slalom.example.domain.rigistration;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -21,6 +24,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+
+import static com.slalom.example.domain.rigistration.Notifications.CHANNEL_1_ID;
 
 public class RegisterUser extends AppCompatActivity implements View.OnClickListener {
 
@@ -63,9 +68,9 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
                 if(isChecked){
-                    word = "goalkeeper";
+                    word = "вратарь";
                 }else{
-                    word = "player";
+                    word = "играк";
                 }
             }
         });
@@ -99,31 +104,31 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
 
 
         if(name.isEmpty()){
-            editTextName.setError("Full name is required!");
+            editTextName.setError("Пустое поле!");
             editTextName.requestFocus();
             return;
         }
 
         if(email.isEmpty()){
-            editTextEmail.setError("Full name is required!");
+            editTextEmail.setError("Введите почту!");
             editTextEmail.requestFocus();
             return;
         }
 
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            editTextEmail.setError("Please provide valid email!");
+            editTextEmail.setError("Пожалуйста, введите верную почту!");
             editTextEmail.requestFocus();
             return;
         }
 
         if(password.isEmpty()){
-            editTextPassword.setError("Password id required!");
+            editTextPassword.setError("Недопустимый пароль!");
             editTextPassword.requestFocus();
             return;
         }
 
         if(password.length() < 6){
-            editTextPassword.setError("Min password length should be 6 characters!");
+            editTextPassword.setError("Минимальный размер пароля 6 символов!");
             editTextPassword.requestFocus();
             return;
         }
@@ -144,18 +149,51 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                                 public void onComplete(@NonNull Task<Void> task) {
 
                                     if(task.isSuccessful()){
-                                        Toast.makeText(RegisterUser.this, "User has been registrated successfully!", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(RegisterUser.this, "Пользователь успешно зарегистрирован!", Toast.LENGTH_LONG).show();
+                                        Intent notificationIntent = new Intent(RegisterUser.this, RegisterUser.class);
+                                        PendingIntent contentIntent = PendingIntent.getActivity(RegisterUser.this,
+                                                0, notificationIntent,
+                                                PendingIntent.FLAG_CANCEL_CURRENT);
+
+                                        NotificationCompat.Builder builder =
+                                                new NotificationCompat.Builder(RegisterUser.this, CHANNEL_1_ID)
+                                                        .setSmallIcon(R.drawable.ic_baseline_sports_hockey_24)
+                                                        .setContentTitle("HockeyApp")
+                                                        .setContentText("Пользователь успешно зарегистрирован!")
+                                                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                                                        .setContentIntent(contentIntent);
+
+                                        NotificationManagerCompat notificationManager =
+                                                NotificationManagerCompat.from(RegisterUser.this);
+                                        notificationManager.notify(4, builder.build());
                                         progressBar.setVisibility((View.GONE));
                                     }else{
-                                        Toast.makeText(RegisterUser.this, "Faild to register! Try again!", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(RegisterUser.this, "Ошибка регистрации! Попробуйте снова!", Toast.LENGTH_LONG).show();
+                                        Intent notificationIntent = new Intent(RegisterUser.this, RegisterUser.class);
+                                        PendingIntent contentIntent = PendingIntent.getActivity(RegisterUser.this,
+                                                0, notificationIntent,
+                                                PendingIntent.FLAG_CANCEL_CURRENT);
+
+                                        NotificationCompat.Builder builder =
+                                                new NotificationCompat.Builder(RegisterUser.this, CHANNEL_1_ID)
+                                                        .setSmallIcon(R.drawable.ic_baseline_sports_hockey_24)
+                                                        .setContentTitle("HockeyApp")
+                                                        .setContentText("Ошибка регистрации! Попробуйте снова!")
+                                                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                                                        .setContentIntent(contentIntent);
+
+                                        NotificationManagerCompat notificationManager =
+                                                NotificationManagerCompat.from(RegisterUser.this);
+                                        notificationManager.notify(5, builder.build());
                                         progressBar.setVisibility(View.GONE);
+
                                     }
                                 }
                             });
 
 
                         }else{
-                            Toast.makeText(RegisterUser.this, "Faild to register!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegisterUser.this, "Ошибка регистрации!", Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.GONE);
                         }
 

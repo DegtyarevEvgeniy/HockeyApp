@@ -101,9 +101,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             menu.setHeaderTitle("Выбери что-нибудь");
             menu.add(getAdapterPosition(), 101, 0, "Добавить в избранное");
-            menu.add(getAdapterPosition(), 102, 1, "Удалить");
         }
-
 
 
     }
